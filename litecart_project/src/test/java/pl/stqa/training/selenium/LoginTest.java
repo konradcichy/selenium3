@@ -2,10 +2,11 @@ package pl.stqa.training.selenium;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -30,16 +31,19 @@ public class LoginTest {
 
 
   @BeforeMethod(enabled = true)
-  public void setUpChrome() throws IOException {
+  public void setupFirefoxNightly() throws IOException {
     properties = new Properties();
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-    System.setProperty("webdriver.chrome.driver", "/Users/Konrad/selenium3/litecart_project/src/test/resources/chromedriver");
-    ChromeOptions options = new ChromeOptions();
-    options.setBinary("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
-    options.addArguments("--kiosk");
-    wd = new ChromeDriver(options);
+    System.setProperty
+            ("webdriver.gecko.driver", "/Users/Konrad/selenium3/litecart_project/src/test/resources/geckodriver");
+    FirefoxOptions options = new FirefoxOptions();
+    options.setBinary
+            (new FirefoxBinary(new File("/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin")));
+    wd = new FirefoxDriver(options);
+    System.out.println(((HasCapabilities) wd).getCapabilities());
     wait = new WebDriverWait(wd, 10);
+
   }
 
   @Test
