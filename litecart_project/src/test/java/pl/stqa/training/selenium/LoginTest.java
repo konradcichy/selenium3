@@ -46,7 +46,7 @@ public class LoginTest {
   }
 
   @Test
-  public void LoginTest() {
+  public void AdminNavigationTest() {
     wd.get(properties.getProperty("web.baseUrl"));
     wd.findElement(By.name("username")).sendKeys(properties.getProperty("web.adminLogin"));
     wd.findElement(By.name("password")).sendKeys(properties.getProperty("web.adminPassword"));
