@@ -1,10 +1,11 @@
 package pl.stqa.training.selenium;
 
-
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -20,9 +21,9 @@ import java.util.Properties;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 /**
- * Created by Konrad on 01/11/2017.
+ * Created by Konrad on 11/11/2017.
  */
-public class LoginTest {
+public class AdminNavigationSidebarTest {
 
   private WebDriver wd;
   private WebDriverWait wait;
@@ -30,20 +31,18 @@ public class LoginTest {
 
 
   @BeforeMethod(enabled = true)
-  public void setupFirefoxNightly() throws IOException {
+  public void setUpChrome() throws IOException {
     properties = new Properties();
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-    System.setProperty
-            ("webdriver.gecko.driver", "/Users/Konrad/selenium3/litecart_project/src/test/resources/geckodriver");
-    FirefoxOptions options = new FirefoxOptions();
-    options.setBinary
-            (new FirefoxBinary(new File("/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin")));
-    wd = new FirefoxDriver(options);
-    System.out.println(((HasCapabilities) wd).getCapabilities());
+    System.setProperty("webdriver.chrome.driver", "/Users/Konrad/selenium3/litecart_project/src/test/resources/chromedriver");
+    ChromeOptions options = new ChromeOptions();
+    options.setBinary("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
+    options.addArguments("--kiosk");
+    wd = new ChromeDriver(options);
     wait = new WebDriverWait(wd, 10);
-
   }
+
 
   @Test
   public void LoginTest() {
@@ -56,15 +55,35 @@ public class LoginTest {
     wd.findElement(By.name("login")).click();
     Assert.assertTrue(wait.until(titleIs("My Store")));
 
+    List<WebElement> mainList = wd.findElements(By.id("app-"));
+    for (int i = 0; i <= mainList.size(); i++) {
+      mainList = wd.findElements(By.id("app-"));
+      mainList.get(i).click();
+      if (isElementPresent(wd, By.cssSelector("#app- > ul > li"))) {
+        List<WebElement> subList = wd.findElements(By.cssSelector("#app- > ul > li"));
+        for (int j = 0; j <= subList.size(); j++) {
+          subList = wd.findElements(By.cssSelector("#app- > ul > li"));
+          subList.get(j).click();
+          System.out.println(wd.findElement(By.cssSelector("#content > h1")).getText());
+
+        }
+
+      } else {
+
+        System.out.println(wd.findElement(By.cssSelector("#content > h1")).getText());
+
+      }
+
+    }
   }
 
 
   boolean isElementPresent(WebDriver driver, By locator) {
     try {
-      driver.findElement(locator);
-      return true;
-    } catch (NoSuchElementException ex) {
-      return false;
+      wait.until((WebDriver wd) -> wd.findElement(locator));
+        return true;
+    } catch (TimeoutException ex) {
+        return false;
     }
   }
 
@@ -81,3 +100,5 @@ public class LoginTest {
 
 
 }
+
+
