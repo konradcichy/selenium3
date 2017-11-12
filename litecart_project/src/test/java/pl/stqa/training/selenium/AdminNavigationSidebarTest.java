@@ -56,24 +56,31 @@ public class AdminNavigationSidebarTest {
     Assert.assertTrue(wait.until(titleIs("My Store")));
 
     List<WebElement> mainList = wd.findElements(By.id("app-"));
-    for (int i = 0; i <= mainList.size(); i++) {
+    for (int i = 0; i < mainList.size(); i++) {
       mainList = wd.findElements(By.id("app-"));
       mainList.get(i).click();
       if (isElementPresent(wd, By.cssSelector("#app- > ul > li"))) {
         List<WebElement> subList = wd.findElements(By.cssSelector("#app- > ul > li"));
-        for (int j = 0; j <= subList.size(); j++) {
+        for (int j = 0; j < subList.size(); j++) {
           subList = wd.findElements(By.cssSelector("#app- > ul > li"));
           subList.get(j).click();
-          System.out.println(wd.findElement(By.cssSelector("#content > h1")).getText());
+          verifyIfHeaderAvailable();
 
         }
 
       } else {
 
-        System.out.println(wd.findElement(By.cssSelector("#content > h1")).getText());
-
+        verifyIfHeaderAvailable();
       }
 
+    }
+  }
+
+  private void verifyIfHeaderAvailable() {
+    if (wd.findElement(By.cssSelector("#content > h1")).isDisplayed()) {
+      System.out.println(wd.findElement(By.cssSelector("#content > h1")).getText());
+    } else {
+      System.out.println("Header not displayed");
     }
   }
 
@@ -81,9 +88,9 @@ public class AdminNavigationSidebarTest {
   boolean isElementPresent(WebDriver driver, By locator) {
     try {
       wait.until((WebDriver wd) -> wd.findElement(locator));
-        return true;
+      return true;
     } catch (TimeoutException ex) {
-        return false;
+      return false;
     }
   }
 
