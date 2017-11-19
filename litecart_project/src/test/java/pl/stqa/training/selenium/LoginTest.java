@@ -1,7 +1,10 @@
 package pl.stqa.training.selenium;
 
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.HasCapabilities;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -14,7 +17,6 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
@@ -29,7 +31,7 @@ public class LoginTest {
   public Properties properties;
 
 
-  @BeforeMethod(enabled = true)
+  @BeforeMethod(enabled = false)
   public void setupFirefoxNightly() throws IOException {
     properties = new Properties();
     String target = System.getProperty("target", "local");
@@ -45,7 +47,7 @@ public class LoginTest {
 
   }
 
-  @Test
+  @Test(enabled = false)
   public void AdminNavigationTest() {
     wd.get(properties.getProperty("web.baseUrl"));
     wd.findElement(By.name("username")).sendKeys(properties.getProperty("web.adminLogin"));
