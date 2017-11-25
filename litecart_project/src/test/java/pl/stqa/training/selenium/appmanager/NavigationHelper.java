@@ -2,14 +2,11 @@ package pl.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 
-import java.util.Properties;
-
 /**
  * Created by Konrad on 19/11/2017.
  */
 public class NavigationHelper extends HelperBase {
 
-  public Properties properties;
 
   public NavigationHelper(ApplicationManager app) throws Exception {
     super(app);

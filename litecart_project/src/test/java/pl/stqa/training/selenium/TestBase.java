@@ -1,16 +1,11 @@
 package pl.stqa.training.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import pl.stqa.training.selenium.appmanager.ApplicationManager;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 /**
  * Created by Konrad on 19/11/2017.
@@ -34,8 +29,6 @@ public class TestBase {
 //    Assert.assertTrue(wait.until(titleIs("My Store")));
 
   }
-
-
 
 
   @BeforeSuite

@@ -19,7 +19,7 @@ public class HelperBase {
     this.app = app;
     this.wd = app.getDriver();
     this.wait = new WebDriverWait(wd, 10);
-    this.jse = (JavascriptExecutor)wd;
+    this.jse = (JavascriptExecutor) wd;
   }
 
   protected void click(By locator) {
@@ -36,9 +36,9 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator);
-    if(text != null) {
+    if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
-      if(! text.equals(existingText)) {
+      if (!text.equals(existingText)) {
         clear(locator);
         sendKeys(locator, text);
       }
@@ -46,7 +46,7 @@ public class HelperBase {
   }
 
   protected void attach(By locator, File file) {
-    if(file != null) {
+    if (file != null) {
       sendKeys(locator, file.getAbsolutePath());
     }
   }

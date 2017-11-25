@@ -26,6 +26,7 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private HelperBase helperBase;
+  private ArticleHelper articleHelper;
 
 
   public ApplicationManager(String browser) {
@@ -41,6 +42,7 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(this);
     sessionHelper = new SessionHelper(this);
     helperBase = new HelperBase(this);
+    articleHelper = new ArticleHelper(this);
 
   }
 
@@ -59,8 +61,12 @@ public class ApplicationManager {
     return navigationHelper;
   }
 
-  public HelperBase helperBase(){
+  public HelperBase helperBase() {
     return helperBase;
+  }
+
+  public ArticleHelper article() {
+    return articleHelper;
   }
 
 
@@ -83,7 +89,7 @@ public class ApplicationManager {
             (new FirefoxBinary(new File("/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin")));
     wd = new FirefoxDriver(options);
     System.out.println(((HasCapabilities) wd).getCapabilities());
-    wait = new WebDriverWait(wd, 10);
+    wait = new WebDriverWait(wd, 5);
 
 
   }
