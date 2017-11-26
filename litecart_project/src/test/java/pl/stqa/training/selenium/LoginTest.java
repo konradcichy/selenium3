@@ -45,6 +45,7 @@ public class LoginTest {
     System.out.println(((HasCapabilities) wd).getCapabilities());
     wait = new WebDriverWait(wd, 10);
 
+
   }
 
   @Test(enabled = false)

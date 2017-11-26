@@ -27,6 +27,8 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private HelperBase helperBase;
   private ArticleHelper articleHelper;
+  private CustomerHelper customerHelper;
+  private Generators generators;
 
 
   public ApplicationManager(String browser) {
@@ -43,6 +45,8 @@ public class ApplicationManager {
     sessionHelper = new SessionHelper(this);
     helperBase = new HelperBase(this);
     articleHelper = new ArticleHelper(this);
+    customerHelper = new CustomerHelper(this);
+    generators = new Generators(this);
 
   }
 
@@ -68,6 +72,15 @@ public class ApplicationManager {
   public ArticleHelper article() {
     return articleHelper;
   }
+
+  public CustomerHelper customer(){
+    return customerHelper;
+  }
+
+  public Generators generators(){
+    return generators;
+  }
+
 
 
   public void runChrome() throws Exception {

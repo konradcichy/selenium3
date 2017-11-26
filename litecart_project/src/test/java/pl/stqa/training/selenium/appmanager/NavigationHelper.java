@@ -31,5 +31,4 @@ public class NavigationHelper extends HelperBase {
     wd.get("http://litecart.stqa.ru/index.php/en/");
   }
 
-
 }
