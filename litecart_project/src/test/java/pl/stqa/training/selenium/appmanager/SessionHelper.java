@@ -20,5 +20,13 @@ public class SessionHelper extends HelperBase {
     }
     click(By.name("login"));
   }
-}
 
+  public void logout() {
+    app.customWaits().clickElement(By.cssSelector(".account > nav >ul >li:nth-of-type(5)"));
+  }
+
+  public boolean logOutConfirmationText() {
+    return app.customWaits().elementText(By.cssSelector("div.notice"), " You are now logged out.");
+  }
+
+}

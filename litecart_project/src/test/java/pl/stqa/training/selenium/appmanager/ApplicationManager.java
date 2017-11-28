@@ -29,6 +29,7 @@ public class ApplicationManager {
   private ArticleHelper articleHelper;
   private CustomerHelper customerHelper;
   private Generators generators;
+  private CustomWaits customWaits;
 
 
   public ApplicationManager(String browser) {
@@ -47,6 +48,7 @@ public class ApplicationManager {
     articleHelper = new ArticleHelper(this);
     customerHelper = new CustomerHelper(this);
     generators = new Generators(this);
+    customWaits = new CustomWaits(this);
 
   }
 
@@ -79,6 +81,10 @@ public class ApplicationManager {
 
   public Generators generators(){
     return generators;
+  }
+
+  public CustomWaits customWaits(){
+    return  customWaits;
   }
 
 

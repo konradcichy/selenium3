@@ -2,6 +2,7 @@ package pl.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class CustomerHelper extends HelperBase {
   }
 
 
-  public void fillCustomerForm(CustomerData customerData) {
+  public void fillCustomerForm(CustomerData customerData) throws InterruptedException {
     type(By.name("tax_id"), customerData.getTaxId());
     type(By.name("company"), customerData.getCompany());
     type(By.name("firstname"), customerData.getFirstname());
@@ -24,12 +25,17 @@ public class CustomerHelper extends HelperBase {
     type(By.name("address2"), customerData.getAddress2());
     type(By.name("postcode"), customerData.getPostcode());
     type(By.name("city"), customerData.getCity());
-    type(By.name("country_code"), customerData.getCountrycode());
-    type(By.name("zone_code"), customerData.getZonecode());
+    WebElement drop = wd.findElement(By.cssSelector("span.select2.select2-container"));
+    drop.click();
+    type(By.cssSelector("input.select2-search__field"), customerData.getCountrycode());
+    WebElement element = wd.findElement(By.name("email"));
+    Actions actions = new Actions(wd);
+    actions.moveToElement(element).click().perform();
     type(By.name("email"), customerData.getEmail());
     type(By.name("phone"), customerData.getPhone());
-    type(By.name("newsletter"), customerData.getNewsletter());
+//    type(By.name("newsletter"), customerData.getNewsletter());
     type(By.name("password"), customerData.getPassword());
+    type(By.name("confirmed_password"), customerData.getPassword());
   }
 
 
@@ -38,4 +44,16 @@ public class CustomerHelper extends HelperBase {
     we.get(index).click();
   }
 
+  public void submitRegistration(){
+    wd.findElement(By.cssSelector("button[name=\"create_account\"]")).click();
+  }
+
+  public boolean RegistrationText(){
+    return app.customWaits().elementText(By.cssSelector("div.notice"),"Your customer account has been created.");
+
+
+
+
+
+  }
 }
