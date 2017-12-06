@@ -33,7 +33,6 @@ public class CustomerHelper extends HelperBase {
     actions.moveToElement(element).click().perform();
     type(By.name("email"), customerData.getEmail());
     type(By.name("phone"), customerData.getPhone());
-//    type(By.name("newsletter"), customerData.getNewsletter());
     type(By.name("password"), customerData.getPassword());
     type(By.name("confirmed_password"), customerData.getPassword());
   }
@@ -44,16 +43,21 @@ public class CustomerHelper extends HelperBase {
     we.get(index).click();
   }
 
-  public void submitRegistration(){
+  public void submitRegistration() {
     wd.findElement(By.cssSelector("button[name=\"create_account\"]")).click();
   }
 
-  public boolean RegistrationText(){
-    return app.customWaits().elementText(By.cssSelector("div.notice"),"Your customer account has been created.");
+  public boolean correctRegistrationText() {
+    return app.customWaits().elementText(By.cssSelector("div.notice"), "Your customer account has been created.");
+  }
 
+  public boolean correctLoginConfirmationText() {
+    return app.customWaits().elementText(By.cssSelector("div.notice"), "You are now logged in as Mark Vieira.");
+  }
 
-
-
-
+  public boolean logOutConfirmationText() {
+    return app.customWaits().elementText(By.cssSelector("div.notice"), "You are now logged out.");
   }
 }
+
+

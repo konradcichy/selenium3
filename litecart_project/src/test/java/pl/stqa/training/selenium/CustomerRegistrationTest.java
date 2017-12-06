@@ -1,8 +1,5 @@
 package pl.stqa.training.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pl.stqa.training.selenium.appmanager.CustomerData;
 
@@ -20,9 +17,15 @@ public class CustomerRegistrationTest extends TestBase {
 
     app.goTo().mainPage();
     app.customer().openRegistrationPage(4);
+    String taxId = app.generators().getRandomAlphanumericString(10);
+    String email = "email" + app.generators().getRandomAlphanumericString(5) + "@email.email";
+    String password = app.generators().getRandomAlphanumericString(9);
+    System.out.println(email + " " + password);
+
+
     app.customer().fillCustomerForm(new CustomerData
             (
-                    app.generators().getRandomAlphanumericString(10),
+                    taxId,
                     "IT CONSULTING",
                     "Mark",
                     "Vieira",
@@ -32,20 +35,17 @@ public class CustomerRegistrationTest extends TestBase {
                     "Berlin",
                     "Russian Federation",
                     "asday",
-                    "email" + app.generators().getRandomAlphanumericString(5) + "@email.email",
+                    email,
                     "1234",
-                    "some",
-                    "some"));
+                    password,
+                    password));
 
-      app.customer().submitRegistration();
-      boolean registrationText = app.customer().RegistrationText();
-      assertThat(registrationText, equalTo(true));
-      app.login().logout();
-      app.login().logOutConfirmationText();
-
-
-
-
+    app.customer().submitRegistration();
+    assertThat(app.customer().correctRegistrationText(), equalTo(true));
+    app.login().logout();
+    assertThat(app.customer().logOutConfirmationText(), equalTo(true));
+    app.login().customerLogin(email, password);
+    assertThat(app.customer().correctLoginConfirmationText(), equalTo(true));
 
 
   }

@@ -1,4 +1,5 @@
 package pl.stqa.training.selenium.appmanager;
+
 import org.openqa.selenium.By;
 
 /**
@@ -21,12 +22,20 @@ public class SessionHelper extends HelperBase {
     click(By.name("login"));
   }
 
-  public void logout() {
-    app.customWaits().clickElement(By.cssSelector(".account > nav >ul >li:nth-of-type(5)"));
+  public void customerLogin(String username, String password) {
+    type(By.name("email"), username);
+    type(By.name("password"), password);
+    if (!wd.findElement(By.name("remember_me")).isSelected()) {
+      click(By.name("remember_me"));
+    }
+    click(By.name("login"));
   }
 
-  public boolean logOutConfirmationText() {
-    return app.customWaits().elementText(By.cssSelector("div.notice"), " You are now logged out.");
+  public void logout() {
+    app.customWaits().clickElement(By.cssSelector(".account > nav >ul >li:nth-of-type(5) a"));
   }
+
+
+
 
 }
